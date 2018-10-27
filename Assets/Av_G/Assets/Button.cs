@@ -32,7 +32,6 @@ public class Button : MonoBehaviour {
     {
         
     }
-    
 
     void OnTriggerStay(Collider collider)
     {
