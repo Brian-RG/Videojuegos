@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootPlayer : MonoBehaviour {
-    public Transform player;
+    private GameObject player;
     public GameObject projectile;
+    public float shoot_distance;
+    public float shoot_frecuency;
 
 	// Use this for initialization
 	void Start () {
+        player = GameObject.Find("Character");
         StartCoroutine(shoot());
 	}
 	
@@ -17,11 +20,12 @@ public class ShootPlayer : MonoBehaviour {
 	}
     IEnumerator shoot(){
         while (true) {
-            yield return new WaitForSeconds(1);
-            if (Vector3.Distance(player.position, transform.position) < 10) {
-                Instantiate<GameObject>(projectile);
+            yield return new WaitForSeconds(shoot_frecuency);
+            if (Vector3.Distance(player.transform.position, transform.position) < shoot_distance) {
+                transform.LookAt(player.transform);
+                Instantiate<GameObject>(projectile,transform.position,transform.rotation);
                 print("Shoot");
-                print(Vector3.Distance(player.position, transform.position));
+                print(Vector3.Distance(player.transform.position, transform.position));
             }
         }
     }
